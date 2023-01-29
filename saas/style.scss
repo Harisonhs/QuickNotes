@@ -1,0 +1,85 @@
+$light: #eee;
+$dark: #555;
+$font: black;
+$backDiv: rgba(255, 255, 255, 0.8);
+$smallPadding: 0.8rem;
+$normalPadding: 1.25rem;
+$buttonHeight: 1.5rem;
+
+body {
+    justify-items: center;
+    background-image: linear-gradient(to bottom right, $light, $dark);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+form {
+    padding: $normalPadding;
+    margin: $smallPadding;
+}
+
+.titlediv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.start::before {
+    content: 'Start:';
+    margin-right: .6em;
+    color: $font;
+}
+
+.end::before {
+    content: 'End:';
+    margin-right: .6em;
+    color: $font;
+}
+
+.title{
+    width: 15rem;
+}
+
+.btnDelete{
+    border: none;
+    height: $buttonHeight;
+}
+
+button{
+    height: 2rem;
+}
+
+input {
+    margin-right: 10px;
+    background: transparent;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    height: 2rem;
+    padding-left: 10px;
+}
+
+.btnLogout {
+    float: right;
+}
+
+.activeNote {
+    border: 2px solid blue;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: $smallPadding;
+    padding: $smallPadding;
+}
+
+.container>div {
+    background-color: $backDiv;
+    text-align: center;
+    padding: $normalPadding 0;
+}
+
+.container>div>span {
+    font-size: $normalPadding;
+    font-weight: bold;
+}

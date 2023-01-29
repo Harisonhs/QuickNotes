@@ -1,0 +1,75 @@
+body {
+  justify-items: center;
+  background-image: linear-gradient(to bottom right, #eee, #555);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+form {
+  padding: 1.25rem;
+  margin: 0.8rem;
+}
+
+.titlediv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.start::before {
+  content: "Start:";
+  margin-right: 0.6em;
+  color: black;
+}
+
+.end::before {
+  content: "End:";
+  margin-right: 0.6em;
+  color: black;
+}
+
+.title {
+  width: 15rem;
+}
+
+.btnDelete {
+  border: none;
+  height: 1.5rem;
+}
+
+button {
+  height: 2rem;
+}
+
+input {
+  margin-right: 10px;
+  background: transparent;
+  border-radius: 20px;
+  height: 2rem;
+  padding-left: 10px;
+}
+
+.btnLogout {
+  float: right;
+}
+
+.activeNote {
+  border: 2px solid blue;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 0.8rem;
+  padding: 0.8rem;
+}
+
+.container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 1.25rem 0;
+}
+
+.container > div > span {
+  font-size: 1.25rem;
+  font-weight: bold;
+}/*# sourceMappingURL=style.css.map */
