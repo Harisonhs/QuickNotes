@@ -15,7 +15,6 @@ class Login {
                     error++;
                 }
             }
-            console.log(error);
             if (error == 0) {
                 localStorage.setItem("auth", 1);
                 this.form.submit();
@@ -56,16 +55,8 @@ class Login {
 
     setStatus(field, message, status) {
         const errorMessage = field.parentElement.querySelector(".error-message");
-        if (status == "success") {
-            if (errorMessage) {
-                errorMessage.innerText = "";
-            }
-            field.classList.remove("input-error");
-        }
-        else if (status == "error") {
-            errorMessage.innerText = message;
-            field.classList.add("input-error");
-        }
+        errorMessage.innerText = message;
+        status == "success"? field.classList.remove("input-error") : field.classList.add("input-error");
     }
 }
 

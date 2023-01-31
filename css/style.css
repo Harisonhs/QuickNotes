@@ -5,9 +5,33 @@ body {
   background-attachment: fixed;
 }
 
-form {
+.noteInput {
+  display: grid;
+  grid-template-columns: -webkit-min-content -webkit-min-content -webkit-min-content -webkit-min-content;
+  grid-template-columns: min-content min-content min-content min-content;
+  grid-gap: 0;
   padding: 1.25rem;
-  margin: 0.8rem;
+}
+.noteInput.input-group {
+  text-align: center;
+  padding: 0;
+}
+.noteInput button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.input-error {
+  border: 1px solid red;
+}
+.input-error:focus {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  margin: 1rem;
 }
 
 .titlediv {
@@ -62,8 +86,7 @@ input {
   grid-gap: 0.8rem;
   padding: 0.8rem;
 }
-
-.container > div {
+.container div {
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
   padding: 1.25rem 0;

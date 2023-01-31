@@ -4,11 +4,12 @@
 <head>
     <title>QuickNotes</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/ggtrash.css">
-    <link rel="stylesheet" type="text/css" href="css/style.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/ggtrash.css">
+    <link rel="stylesheet" type="text/css" href="/css/ggadd.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.min.css" />
     <script defer src="/js/auth.js"></script>
-    <script src="js/initAuth.js" defer></script>
-    <script src="js/quicknotes.js" defer></script>
+    <script defer src="/js/initAuth.js"></script>
+    <script defer src="/js/quicknotes.js"></script>
 </head>
 
 <body>
@@ -17,11 +18,20 @@
         <h1>QuickNotes</h1>
         <button id="btnLogout">Logout</button>
     </div>
-    <form>
-        <input type="time" class="start" id="start">
-        <input type="time" class="end" id="end">
-        <input type="text" class="title" placeholder="title" id="title">
-        <button>OK</button>
+    <form class="noteInput">
+        <div class="input-group">
+            <input type="time" class="start">
+            <span class="error-message"></span>
+        </div>
+        <div class="input-group">
+            <input type="time" class="end">
+            <span class="error-message"></span>
+        </div>
+        <div class="input-group">
+            <input type="text" class="title" placeholder="title">
+            <span class="error-message"></span>
+        </div>        
+        <button><i class="gg-add"></i></button>
     </form>
 
     <section class="container">

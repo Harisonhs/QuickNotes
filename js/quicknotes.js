@@ -1,5 +1,47 @@
-const suffix = Date.now();
-updateIDs();
+class Note {
+    constructor() {
+        this.start = "";
+        this.end = "";
+        this.title = "";
+        this.elapsedTime = "";
+    }
+
+    validate(form) {
+        let inputStart = form.querySelector('.start');
+        let inputEnd = form.querySelector('.end');
+        let inputTitle = form.querySelector('.title');
+        this.start = this.validateField(inputStart);
+        this.end = this.validateField(inputEnd);
+        this.title = this.validateField(inputTitle);
+        if (this.start && this.end && this.title) {
+            this.elapsedTime = dayInMinutes(this.end) - dayInMinutes(this.start);
+            form.reset();
+            return true;
+        }
+        return false;
+    }
+
+    validateField(field) {
+        if (field.value == "") {
+            this.setStatus(field,
+                `Input ${field.classList[0]}`,
+                "error");
+            return null;
+        }
+        this.setStatus(field, null, "success");
+        return field.value;
+    }
+
+    setStatus(field, message, status) {
+        const errorMessage = field.parentNode.querySelector(".error-message");
+        errorMessage.innerText = message;
+        status == "success" ? field.classList.remove("input-error") : field.classList.add("input-error");
+    }
+
+}
+
+const form = document.querySelector(".noteInput");
+let note = new Note();
 
 const container = document.querySelector(".container");
 const emptyContainer = document.createElement("span");
@@ -11,59 +53,26 @@ if (notesList.length === 0) {
 }
 notesList.map(atividade => addNoteDiv(atividade));
 
-
-const form = document.querySelector('form');
-form.addEventListener('submit', function (evt) {
+form.addEventListener("submit", (evt) => {
     evt.preventDefault();
-
-    let start = form.querySelector('#start-'+suffix).value;
-    let end = form.querySelector('#end-'+suffix).value;
-    let title = form.querySelector('#title-'+suffix).value;
-    if (validate(start, end, title)) {
-        let note = getObject(start, end, title);
-        if (note) {
-            if (!existsInList(note, notesList)) {
-                addToList(note, notesList);
-                updateDOM(notesList);
-                updateStorage();
-            } else {
-                alert('Previously inserted element');
-            }
+    if(note.validate(form)){
+        if (!existsInList(note, notesList)) {
+            addToList(note, notesList);
+            updateDOM(notesList);
+            updateStorage();
+        } else {
+            alert('Previously inserted element');
         }
-        form.reset();
-        form.querySelector('#start-'+suffix).focus();
     }
-
 });
 
-function updateIDs(){
-    document.querySelector("#start").id = "start-" + suffix;
-    document.querySelector("#end").id = "end-" + suffix;
-    document.querySelector("#title").id = "title-" + suffix;
-}
-
-function _validateField(field, name) {
-    if (!field) {
-        alert(name + " must be informed.");
-        return false;
-    }
-    return true;
-}
-
-function validate(start, end, title) {
-    return _validateField(start, 'start') &&
-        _validateField(end, "end") &&
-        _validateField(title, "title");
-
-}
-
-function existsInList(element, list) {
+function existsInList(node, list) {
     for (let i = 0; i < list.length; i++) {
         let aux = list[i];
-        if (aux.start === element.start
-            && aux.end === element.end
-            && aux.elapsedTime === element.elapsedTime
-            && aux.title === element.title) {
+        if (aux.start === node.start
+            && aux.end === node.end
+            && aux.elapsedTime === node.elapsedTime
+            && aux.title === node.title) {
             return true;
         }
     }
@@ -140,21 +149,6 @@ function newHTMLButton(text) {
     return btn;
 }
 
-function getObject(start, end, title) {
-    let startInMin = dayInMinutes(start);
-    let endInMin = dayInMinutes(end);
-
-    let elapsedTime = endInMin - startInMin;
-    let obj = {
-        start,
-        end,
-        elapsedTime,
-        title
-    };
-
-    return obj;
-}
-
 function addToList(obj, list) {
     if (existsInList(obj, list)) {
         alert('Previously inserted element');
@@ -164,13 +158,13 @@ function addToList(obj, list) {
     }
 }
 
-function sortByStart(list){
+function sortByStart(list) {
     list.sort((a, b) => dayInMinutes(a.start) - dayInMinutes(b.start));
 }
 
-function updateDOM(list){
+function updateDOM(list) {
     const container = document.querySelector(".container");
-    while(container.children.length > 0){
+    while (container.children.length > 0) {
         container.removeChild(container.lastChild);
     }
     list.map(atividade => addNoteDiv(atividade));
