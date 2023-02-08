@@ -15,7 +15,6 @@ class Note {
         this.title = this.validateField(inputTitle);
         if (this.start && this.end && this.title) {
             this.elapsedTime = dayInMinutes(this.end) - dayInMinutes(this.start);
-            form.reset();
             return true;
         }
         return false;
@@ -38,11 +37,19 @@ class Note {
         status == "success" ? field.classList.remove("input-error") : field.classList.add("input-error");
     }
 
+    noteAlert(modal, title, message) {
+        if (modal) {
+            modal.style.display = "block";
+            modal.querySelector(".modal-header h2").innerText = title;
+            modal.querySelector(".modal-body p").innerText = message;
+        } else {
+            alert(message);
+        }
+    }
+
 }
 
 const form = document.querySelector(".noteInput");
-let note = new Note();
-
 const container = document.querySelector(".container");
 const emptyContainer = document.createElement("span");
 emptyContainer.innerHTML = "No notes registered";
@@ -55,28 +62,27 @@ notesList.map(atividade => addNoteDiv(atividade));
 
 form.addEventListener("submit", (evt) => {
     evt.preventDefault();
-    if(note.validate(form)){
+    let note = new Note();
+    if (note.validate(form)) {
         if (!existsInList(note, notesList)) {
             addToList(note, notesList);
             updateDOM(notesList);
             updateStorage();
+            form.reset();
         } else {
-            alert('Previously inserted element');
+            note.noteAlert(modal, 'Error', 'Previously inserted element');
         }
     }
 });
 
 function existsInList(node, list) {
-    for (let i = 0; i < list.length; i++) {
-        let aux = list[i];
-        if (aux.start === node.start
+    let aux = list.filter(aux => {
+        return (aux.start === node.start
             && aux.end === node.end
             && aux.elapsedTime === node.elapsedTime
-            && aux.title === node.title) {
-            return true;
-        }
-    }
-    return false;
+            && aux.title === node.title)
+    });
+    return aux.length > 0;
 }
 
 
@@ -88,7 +94,6 @@ function removeFromList(note, list) {
 }
 
 function removeDiv(id) {
-    const container = document.querySelector(".container");
     let nodeDiv = document.querySelector("#" + id);
     container.removeChild(nodeDiv);
     if (container.children.length === 0) {
@@ -101,7 +106,6 @@ function updateStorage() {
 }
 
 function activeNoteDiv(divAlvo) {
-    const container = document.querySelector(".container");
     for (let element of container.children) {
         element.className = '';
     }
@@ -109,7 +113,6 @@ function activeNoteDiv(divAlvo) {
 }
 
 function addNoteDiv(note) {
-    const container = document.querySelector(".container");
     if (emptyContainer.parentNode) {
         emptyContainer.parentNode.removeChild(emptyContainer);
     }
@@ -150,12 +153,8 @@ function newHTMLButton(text) {
 }
 
 function addToList(obj, list) {
-    if (existsInList(obj, list)) {
-        alert('Previously inserted element');
-    } else {
-        list.push(obj);
-        sortByStart(list);
-    }
+    list.push(obj);
+    sortByStart(list);
 }
 
 function sortByStart(list) {
@@ -163,11 +162,10 @@ function sortByStart(list) {
 }
 
 function updateDOM(list) {
-    const container = document.querySelector(".container");
     while (container.children.length > 0) {
         container.removeChild(container.lastChild);
     }
-    list.map(atividade => addNoteDiv(atividade));
+    list.map(note => addNoteDiv(note));
 }
 
 function dayInMinutes(hour) {

@@ -7,8 +7,10 @@
     <link rel="stylesheet" type="text/css" href="/css/ggtrash.css">
     <link rel="stylesheet" type="text/css" href="/css/ggadd.css">
     <link rel="stylesheet" type="text/css" href="/css/style.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/modal.min.css" />
     <script defer src="/js/auth.js"></script>
     <script defer src="/js/initAuth.js"></script>
+    <script defer src="/js/modal.js"></script>
     <script defer src="/js/quicknotes.js"></script>
 </head>
 
@@ -30,12 +32,25 @@
         <div class="input-group">
             <input type="text" class="title" placeholder="title">
             <span class="error-message"></span>
-        </div>        
+        </div>
         <button><i class="gg-add"></i></button>
     </form>
 
     <section class="container">
     </section>
+
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-close">&times;</span>
+                <h2></h2>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
